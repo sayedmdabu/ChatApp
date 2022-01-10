@@ -21,8 +21,10 @@ FontAwesome5,Fontisto,AntDesign} from '@expo/vector-icons';
  import ModalScreen from '../screens/ModalScreen';
  
  import NotFoundScreen from '../screens/NotFoundScreen';
- 
- import TabOneScreen from '../screens/TabOneScreen';
+ import ChatsScreen from '../screens/ChatsScreen';
+ import ChatRoomScreen from '../screens/ChatRoomScreen';
+ import ContactsScreen from '../screens/ContactsScreen';
+
  import TabTwoScreen from '../screens/TabTwoScreen';
  import TabThreeScreen from '../screens/TabThreeScreen';
 
@@ -79,7 +81,29 @@ import { color } from 'react-native-reanimated';
           )
         }}
         />
-       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+
+        <Stack.Screen 
+          name="ChatRoom"  
+          component={ChatRoomScreen} 
+          options={({ route }) => ({
+            title: route.params.name,
+            headerRight: () => (
+              <View style={{
+                flexDirection: 'row',
+                width: 100,
+                justifyContent: 'space-between',
+                marginRight: 10,
+                backgroundColor: Colors.light.tint,
+              }}>
+                <FontAwesome5 name='video' size={22} color={'white'} />
+                <MaterialIcons name='call' size={22} color={'white'} />
+                <MaterialCommunityIcons name='dots-vertical' size={22} color={'white'} />
+              </View>
+            )
+          })} 
+        />
+        <Stack.Screen name="Contacts" component={ContactsScreen} />
+        <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
 
      </Stack.Navigator>
    );
@@ -119,7 +143,7 @@ import { color } from 'react-native-reanimated';
        }}>
        <MainTab.Screen
          name="Camera"
-         component={TabOneScreen}
+         component={TabThreeScreen}
          options={{
           tabBarIcon: ({color: string }) => <Fontisto name="camera" color="#68A5A2" size={18} />,
           tabBarLabel: () => null,
@@ -127,7 +151,7 @@ import { color } from 'react-native-reanimated';
        />
        <MainTab.Screen
          name="Chats"
-         component={TabTwoScreen}
+         component={ChatsScreen}
        />
        <MainTab.Screen
          name="Status"
